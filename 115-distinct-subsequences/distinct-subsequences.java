@@ -1,25 +1,29 @@
 class Solution {
-  public int numDistinct(String S, String T) {
-    // array creation
-    int[][] mem = new int[T.length()+1][S.length()+1];
-
-    // filling the first row: with 1s
-    for(int j=0; j<=S.length(); j++) {
-        mem[0][j] = 1;
-    }
-    
-    // the first column is 0 by default in every other rows but the first, which we need.
-    
-    for(int i=0; i<T.length(); i++) {
-        for(int j=0; j<S.length(); j++) {
-            if(T.charAt(i) == S.charAt(j)) {
-                mem[i+1][j+1] = mem[i][j] + mem[i+1][j];
-            } else {
-                mem[i+1][j+1] = mem[i+1][j];
-            }
+  public int numDistinct(String s, String t) {
+    int[][] dp=new int[s.length()][t.length()];
+        for(int[] a:dp){
+            Arrays.fill(a,-1);
         }
+        return dist(s,t,0,0,dp);
     }
-    
-    return mem[T.length()][S.length()];
- }
+    public static int dist(String s,String t,int i,int j,int[][] dp){
+        if(j==t.length()){
+            return 1;
+        }
+        if(i==s.length()){
+            return 0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int inc=0;
+        int exe=0;
+        if(s.charAt(i)==t.charAt(j)){
+            inc=dist(s,t,i+1,j+1,dp);
+        }
+        exe=dist(s,t,i+1,j,dp);
+        
+        
+        return dp[i][j]=inc+exe;
+    }
 }
