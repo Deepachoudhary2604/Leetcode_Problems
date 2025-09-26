@@ -6,23 +6,20 @@ class Solution {
             max+=weights[i];
             min=Math.max(weights[i],min);
         }
-        int ans=BS(weights,min,max,days);
-        return ans;
-    }
-    public static int BS(int[] weights,int s,int e,int days){
-        int ans=0;
+        int s=min;
+        int e=max;
         while(s<=e){
             int mid=s+(e-s)/2;
-            int d=1;
-            int w=0;
+            int currWeight=0;
+            int currdays=1;
             for(int i=0;i<weights.length;i++){
-                if((weights[i]+w)>mid){
-                    d++;
-                    w=0;
+                if(currWeight+weights[i]>mid){
+                    currdays++;
+                    currWeight=0;
                 }
-                w=w+weights[i];
+                currWeight+=weights[i];
             }
-            if(d>days){
+            if(currdays>days){
                 s=mid+1;
             }
             else{
@@ -30,6 +27,5 @@ class Solution {
             }
         }
         return s;
-        
     }
 }
