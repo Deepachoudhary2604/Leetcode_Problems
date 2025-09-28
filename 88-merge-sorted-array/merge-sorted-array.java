@@ -4,12 +4,9 @@ class Solution {
             return;
         }
         int i=m;
-        int j=0;
-        
-        while(i<nums1.length){
+        for(int j=0;j<nums2.length;j++){
             nums1[i]=nums2[j];
             i++;
-            j++;
         }
         Arrays.sort(nums1);
     }
