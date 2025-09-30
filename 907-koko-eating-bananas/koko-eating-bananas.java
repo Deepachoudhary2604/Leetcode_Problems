@@ -1,13 +1,11 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int min=1;
-        int max=0;
+        int s=1;
+        int e=0;
         for(int i=0;i<piles.length;i++){
-            max=Math.max(piles[i],max);
+            e=Math.max(e,piles[i]);
         }
-        int s=min;
-        int e=max;
-        int ans=max;
+        int ans=0;
         while(s<=e){
             int mid=s+(e-s)/2;
             if(canEat(piles,mid,h)){
@@ -21,11 +19,13 @@ class Solution {
         return ans;
     }
     public static boolean canEat(int[] piles,int mid,int h){
-        long hour = 0; // ✅ use long to avoid overflow
-        for (int pile : piles) {
-            hour += (pile + mid - 1) / mid;
-            if (hour > h) return false; // early exit
+        long hour=0;
+        for(int p:piles){
+            hour+=p/mid;
+            if(p%mid!=0){
+                hour++;
+            }
         }
-        return hour <= h;
+        return hour<=h;
     }
 }
