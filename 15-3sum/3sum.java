@@ -2,7 +2,7 @@ class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans=new ArrayList<>();
-        for(int i=0;i<nums.length-1;i++){
+        for(int i=0;i<nums.length;i++){
             if(i>0 && nums[i]==nums[i-1]){
                 continue;
             }
@@ -13,21 +13,25 @@ class Solution {
                 if(sum<0){
                     j++;
                 }
-                if(sum>0){
+                else if(sum>0){
                     k--;
                 }
-                if(sum==0){
-                    ArrayList<Integer> arr=new ArrayList<>();
+                else{
+                    List<Integer> arr=new ArrayList<>();
                     arr.add(nums[i]);
                     arr.add(nums[j]);
                     arr.add(nums[k]);
                     ans.add(arr);
-                    while (j < k && nums[j] == nums[j + 1]) j++;
-                    // Skip duplicates for k
-                    while (j < k && nums[k] == nums[k - 1]) k--;
+                    while(j<k && nums[j]==nums[j+1]){
+                        j++;
+                    }
+                    while(j<k && nums[k]==nums[k-1]){
+                        k--;
+                    } 
                     j++;
-                    k--;
+                    k--; 
                 }
+                
             }
         }
         return ans;
