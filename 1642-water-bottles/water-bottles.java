@@ -3,7 +3,7 @@ class Solution {
         int n=numBottles;
         int m=numExchange;
         int sum=n;
-        while (n >= m) {
+        while (n/m>0) {
             int newBottles = n / m;   // bottles we can get by exchange
             sum += newBottles;       // drink them
             n = newBottles + (n % m); // update: new full + leftover empties
