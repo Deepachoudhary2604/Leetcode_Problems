@@ -19,11 +19,14 @@ class Solution {
         combination(candidate,target-candidate[idx],l1,idx+1,ans);
         l1.remove(l1.size()-1);
 
-        
-        int next = idx + 1;
-        while (next < candidate.length && candidate[next] == candidate[idx]) {
+        int next=idx+1;
+        while(next<candidate.length && candidate[idx]==candidate[next] ){
             next++;
         }
+        // int next = idx + 1;
+        // while (next < candidate.length && candidate[next] == candidate[idx]) {
+        //     next++;
+        // }
         combination(candidate,target,l1,next,ans);
         
         
