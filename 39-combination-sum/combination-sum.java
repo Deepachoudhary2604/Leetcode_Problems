@@ -1,5 +1,5 @@
 class Solution {
-    static Set<List<Integer>> set=new HashSet<>();
+    Set<List<Integer>> set=new HashSet<>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<Integer> l1=new ArrayList<>();
         List<List<Integer>> ans=new ArrayList<>();
@@ -7,11 +7,11 @@ class Solution {
         return ans;
         
     }
-    public static void combination(int[] candidate,int target,List<Integer> l1,int idx,List<List<Integer>> ans){
+    public void combination(int[] candidate,int target,List<Integer> l1,int idx,List<List<Integer>> ans){
         if(target==0){
             if(!set.contains(l1)){
                 ans.add(new ArrayList<>(l1));
-                set.add(l1);
+                set.add(new ArrayList<>(l1));
             }
             return;
         }
