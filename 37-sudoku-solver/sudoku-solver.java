@@ -1,60 +1,52 @@
 class Solution {
-
-    // Check if placing a digit at board[row][col] is valid
-    public boolean areRulesMet(char[][] board, int row, int col, char digit) {
-        // Check if the digit exists in the same row or column
-        for (int i = 0; i < 9; i++) {
-            if (board[row][i] == digit || board[i][col] == digit) {
+    public void solveSudoku(char[][] board) {
+        solve(board,0,0);
+    }
+    public boolean solve(char[][] board,int row,int col){
+        if(row==9){
+            return true;
+        }
+        int nextRow=row;
+        int nextCol=col+1;
+        if(nextCol==9){
+            nextRow++;
+            nextCol=0;
+        }
+        if(board[row][col]!='.'){
+            return solve(board,nextRow,nextCol);
+        }
+        for(char dig='1';dig<='9';dig++){
+            if(isSafe(board,row,col,dig)){
+                board[row][col]=dig;
+                if(solve(board,nextRow,nextCol)){
+                    return true;
+                }
+                board[row][col]='.';
+            }
+        }
+        return false;
+    }
+    public boolean isSafe(char[][] board,int row,int col,char dig){
+        for(int i=0;i<9;i++){
+            if(board[row][i]==dig){
                 return false;
             }
         }
-
-        // Check if the digit exists in the 3x3 subgrid
-        int startRow = row-row%3;
-        int startCol = col-col%3;
-        for (int i = startRow; i < startRow + 3; i++) {
-            for (int j = startCol; j < startCol + 3; j++) {
-                if (board[i][j] == digit) {
+        for(int i=0;i<9;i++){
+            if(board[i][col]==dig){
+                return false;
+            }
+        }
+        int sr=(row/3)*3;
+        int sc=(col/3)*3;
+        for(int i=sr;i<sr+3;i++){
+            for(int j=sc;j<sc+3;j++){
+                if(board[i][j]==dig){
                     return false;
                 }
             }
         }
-
-        return true; // The placement is valid
-    }
-
-    // Recursive function to solve the Sudoku board
-    public boolean solve(char[][] board) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                // If the current cell is empty, try placing digits
-                if (board[i][j] == '.') {
-                    for (char digit = '1'; digit <= '9'; digit++) {
-                        if (areRulesMet(board, i, j, digit)) {
-                            board[i][j] = digit; // Place the digit
-
-                            // Recurse to solve the rest of the board
-                            if (solve(board)) {
-                                return true;
-                            }
-
-                            // Backtrack if the placement doesn't lead to a solution
-                            board[i][j] = '.';
-                        }
-                    }
-
-                    // If no valid digit can be placed, return false
-                    return false;
-                }
-            }
-        }
-
-        // If the entire board is filled correctly, return true
         return true;
-    }
 
-    // Public function to solve the Sudoku board
-    public void solveSudoku(char[][] board) {
-        solve(board);
     }
 }
