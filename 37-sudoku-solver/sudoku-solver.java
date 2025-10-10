@@ -1,30 +1,26 @@
 class Solution {
     public void solveSudoku(char[][] board) {
-        solve(board,0,0);
+        solve(board);
     }
-    public boolean solve(char[][] board,int row,int col){
-        if(row==9){
-            return true;
-        }
-        int nextRow=row;
-        int nextCol=col+1;
-        if(nextCol==9){
-            nextRow++;
-            nextCol=0;
-        }
-        if(board[row][col]!='.'){
-            return solve(board,nextRow,nextCol);
-        }
-        for(char dig='1';dig<='9';dig++){
-            if(isSafe(board,row,col,dig)){
-                board[row][col]=dig;
-                if(solve(board,nextRow,nextCol)){
-                    return true;
+    public boolean solve(char[][] board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]=='.'){
+                    for(char dig='1';dig<='9';dig++){
+                        if(isSafe(board,i,j,dig)){
+                            board[i][j]=dig;
+                            if(solve(board)){
+                                return true;
+                            }
+                            board[i][j]='.';
+                        }
+                    }
+                    return false;
+                    
                 }
-                board[row][col]='.';
             }
         }
-        return false;
+        return true;
     }
     public boolean isSafe(char[][] board,int row,int col,char dig){
         for(int i=0;i<9;i++){
@@ -47,6 +43,5 @@ class Solution {
             }
         }
         return true;
-
     }
 }
