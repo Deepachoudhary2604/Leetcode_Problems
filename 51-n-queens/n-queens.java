@@ -7,10 +7,10 @@ class Solution {
             }
         }
         List<List<String>> ans=new ArrayList<>();
-        queen(arr,ans,"",0);
+        queen(arr,ans,0);
         return ans;
     }
-    public void queen(char[][] arr,List<List<String>> ans,String s,int row){
+    public void queen(char[][] arr,List<List<String>> ans,int row){
         int n=arr.length;
         if(row==n){
             List<String> l=new ArrayList<>();
@@ -27,7 +27,7 @@ class Solution {
         for(int i=0;i<n;i++){
             if(isSafe(arr,row,i)){
                 arr[row][i]='Q';
-                queen(arr,ans,s,row+1);
+                queen(arr,ans,row+1);
                 arr[row][i]='.';
             }
         }
