@@ -1,27 +1,29 @@
 class Solution {
-    private int[] primes = {1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-    private int mod = 1000000007;
-
-    private int normal(String s) {
-        long res = 1;
-        for (char c : s.toCharArray())
-            res = (res * primes[c - 'a']) % mod;
-        return (int) res;
+    public List<String> removeAnagrams(String[] words) {
+        List<String> result = new ArrayList<>();
+        result.add(words[0]);
+        for(int i=1;i<words.length;i++)
+        {
+            if(!isAnagram(words[i],words[i-1]))
+                result.add(words[i]);
+        }
+        return result;
     }
 
-    public List<String> removeAnagrams(String[] words) {
-        List<String> res = new ArrayList<>();
-        res.add(words[0]);
-        int prev = normal(words[0]);
-
-        for (int i = 1; i < words.length; i++) {
-            int key = normal(words[i]);
-            if (key != prev) {
-                res.add(words[i]);
-                prev = key;
+    private boolean isAnagram(String str1, String str2){
+        if(str1.length() != str2.length()){ 
+            return false;
+        }
+        int[] freq = new int[26];
+        for(int i=0;i<str1.length();i++){
+            freq[str1.charAt(i)-'a']++;
+            freq[str2.charAt(i)-'a']--;
+        }
+        for(int val : freq){
+            if(val != 0){
+                return false;
             }
         }
-
-        return res;
+        return true;
     }
 }
