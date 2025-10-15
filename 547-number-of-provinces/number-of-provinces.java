@@ -1,35 +1,22 @@
 class Solution {
-    
     public int findCircleNum(int[][] isConnected) {
+        int c=0;
         int n=isConnected.length;
-        int count=0;
-        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<>()); // create empty list for each node
-        }
+        int[] vis=new int[n];
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(isConnected[i][j]==1 && i!=j){
-                    adj.get(i).add(j);
-                    adj.get(j).add(i);
-                }
+            if(vis[i]==0){
+                c++;
+                dfs(isConnected,vis,i);
             }
         }
-        int[] visited=new int[n];
-        for(int i=0;i<n;i++){
-            if(visited[i]==0){
-                count++;
-                dfs(adj,visited,i);
-            }
-        }
-        return count;
+        return c;
     }
-    public void dfs(ArrayList<ArrayList<Integer>> adj,int[] visited,int s){
-        visited[s]=1;
-        for(int val:adj.get(s)){
-            if(visited[val]==0){
-                dfs(adj,visited,val);
-
+    public void dfs(int[][] isConnected, int[] vis,int s){
+        vis[s]=1;
+        for(int i=0;i<isConnected.length;i++){
+            if(isConnected[s][i]==1 && vis[i]==0){
+                dfs(isConnected,vis,i);
+                
             }
         }
     }
