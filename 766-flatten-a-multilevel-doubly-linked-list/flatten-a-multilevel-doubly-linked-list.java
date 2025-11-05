@@ -17,7 +17,7 @@ class Solution {
         Node curr=head;
         while(curr!=null){
             if(curr.child!=null){
-                Node Next=curr.next;
+                Node next=curr.next;
                 curr.next=flatten(curr.child);
                 curr.next.prev=curr;
                 curr.child=null;
@@ -25,9 +25,9 @@ class Solution {
                     curr=curr.next;
                     
                 }
-                if(Next!=null){
-                    curr.next=Next;
-                    Next.prev=curr;
+                if(next!=null){
+                    curr.next=next;
+                    next.prev=curr;
                 }
             }
             curr=curr.next;
