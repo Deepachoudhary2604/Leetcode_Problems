@@ -45,7 +45,7 @@ class Solution {
         adj.putIfAbsent(root.val, new ArrayList<>());
         if(parent!=-1){
             adj.get(root.val).add(parent);
-            adj.get(parent).add(root.val);
+            // adj.get(parent).add(root.val);
         }
         if(root.left!=null){
             adj.get(root.val).add(root.left.val);
