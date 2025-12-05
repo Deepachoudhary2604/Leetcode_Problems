@@ -15,8 +15,19 @@ class Solution {
                 int l=nums.length-1;
                 while(k<l){
                     long total=(long)nums[i]+nums[j]+nums[k]+nums[l];
-                    if(total==target){
-                        l1.add(Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
+                    if(total>target){
+                        l--;
+                    }
+                    else if(total<target){
+                        k++;
+                    }
+                    else{
+                        ArrayList<Integer> l2=new ArrayList<>();
+                        l2.add(nums[i]);
+                        l2.add(nums[j]);
+                        l2.add(nums[k]);
+                        l2.add(nums[l]);
+                        l1.add(new ArrayList<>(l2));
                         k++;
                         l--;
                         while(k<l && nums[k]==nums[k-1]){
@@ -25,12 +36,6 @@ class Solution {
                         while(k<l && nums[l]==nums[l+1]){
                             l--;
                         }
-                    }
-                    else if(total<target){
-                        k++;
-                    }
-                    else{
-                        l--;
                     }
                 }
             }
