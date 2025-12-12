@@ -13,13 +13,14 @@ class Solution {
     }
 
     public static boolean check(char[][] board, int row, int col, char dig) {
+        
         for(int i=0;i<9;i++){
-            if(i!=col && board[row][i]==dig){
+            if(i!=row && board[i][col]==dig){
                 return false;
             }
         }
-        for(int i=0;i<9;i++){
-            if(i!=row && board[i][col]==dig){
+        for(int j=0;j<9;j++){
+            if(j!=col && board[row][j]==dig){
                 return false;
             }
         }
