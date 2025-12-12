@@ -1,6 +1,6 @@
 class Solution {
     public void solveSudoku(char[][] board) {
-        solve(board);
+        solve(board);                             
     }
     public boolean solve(char[][] board){
         for(int i=0;i<9;i++){
@@ -16,7 +16,6 @@ class Solution {
                         }
                     }
                     return false;
-                    
                 }
             }
         }
