@@ -18,7 +18,7 @@ class Solution {
         }
 
         char ch = ques.charAt(idx);
-        String str = key[ch - '0']; // map '2'..'9' -> 0..7
+        String str = key[ch - '0']; 
 
         // pick each letter one by one
         for (int i = 0; i < str.length(); i++) {
