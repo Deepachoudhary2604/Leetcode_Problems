@@ -7,10 +7,10 @@ class Solution {
             }
         }
         List<List<String>> ans=new ArrayList<>();
-        queen(arr,ans,0);
+        helper(arr,ans,0);
         return ans;
     }
-    public void queen(char[][] arr,List<List<String>> ans,int row){
+    public void helper(char[][] arr,List<List<String>> ans,int row){
         int n=arr.length;
         if(row==n){
             List<String> l=new ArrayList<>();
@@ -27,7 +27,7 @@ class Solution {
         for(int i=0;i<n;i++){
             if(isSafe(arr,row,i)){
                 arr[row][i]='Q';
-                queen(arr,ans,row+1);
+                helper(arr,ans,row+1);
                 arr[row][i]='.';
             }
         }
@@ -39,8 +39,8 @@ class Solution {
                 return false;
             }
         }
-        for(int i=0;i<n;i++){
-            if(arr[i][col]=='Q'){
+        for(int j=0;j<n;j++){
+            if(arr[j][col]=='Q'){
                 return false;
             }
         }
@@ -81,6 +81,5 @@ class Solution {
             j++;
         }
         return true;
-
     }
 }
