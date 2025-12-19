@@ -1,21 +1,20 @@
 class Solution {
     public int maxArea(int[] h) {
-        int n = h.length;
-        int maxA = 0;
         int l=0;
-        int r=n-1;
+        int r=h.length-1;
+        int max=0;
         while(l<r){
-            int a=0;
-            if(h[l]<h[r]){
-                a=h[l]*(r-l);
-                l++;
-            }
-            else{
-                a=h[r]*(r-l);
+            int area=0;
+            if(h[l]>h[r]){
+                area=h[r]*(r-l);
                 r--;
             }
-            maxA= Math.max(maxA,a);
+            else{
+                area=h[l]*(r-l);
+                l++;
+            }
+            max=Math.max(max,area);
         }
-        return maxA;
+        return max;
     }
 }
