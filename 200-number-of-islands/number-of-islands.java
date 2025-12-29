@@ -21,5 +21,4 @@ class Solution {
         dfs(grid,sr,sc+1);
         dfs(grid,sr,sc-1);
     }
-
 }
