@@ -15,7 +15,6 @@ class Solution {
         }
         int f=climb(cost,i+1,dp);
         int s=climb(cost,i+2,dp);
-        return dp[i]=cost[i]+Math.min(f,s);
-        
+        return dp[i]=cost[i]+Math.min(f,s);   
     }
 }
