@@ -16,7 +16,6 @@ class Solution {
                 String val=q.poll();
                 char[] temp=val.toCharArray();
                 for(int i=0;i<temp.length;i++){
-
                     char original=temp[i];
                     for(char ch='a';ch<='z';ch++){
                         temp[i]=ch;
@@ -29,13 +28,9 @@ class Solution {
                             set.add(newStr);
                         }
                     }
-                    temp[i]=original;
-                    
+                    temp[i]=original; 
                 }
                 size--;
-                
-
-            
             }
         }
         return 0;
