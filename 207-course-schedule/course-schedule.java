@@ -1,24 +1,29 @@
 class Solution {
     public boolean canFinish(int n, int[][] grid) {
-        List<List<Integer>> adj=new ArrayList<>();
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
         for(int i=0;i<n;i++){
             adj.add(new ArrayList<>());
         }
-        int[] indegree=new int[n];
-        for(int i=0;i<grid.length;i++){
-            int u=grid[i][0];
-            int v=grid[i][1];
+        for(int[] g:grid){
+            int u=g[0];
+            int v=g[1];
             adj.get(v).add(u);
-            indegree[u]++;
         }
-        
+
+        ArrayList<Integer> res=new ArrayList<>();
+        int[] indegree=new int[n];
+        for(int i=0;i<n;i++){
+            for(int neibr:adj.get(i)){
+                indegree[neibr]++;
+            }
+        }
+
         Queue<Integer> q=new LinkedList<>();
-        for(int i=0;i<indegree.length;i++){
+        for(int i=0;i<n;i++){
             if(indegree[i]==0){
                 q.add(i);
             }
         }
-        ArrayList<Integer> res=new ArrayList<>();
         while(!q.isEmpty()){
             int val=q.poll();
             res.add(val);
@@ -29,6 +34,12 @@ class Solution {
                 }
             }
         }
-        return res.size()==n;
+
+        if(res.size()==n){
+            return true;
+        }
+
+        return false;
+
     }
 }
