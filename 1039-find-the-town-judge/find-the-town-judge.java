@@ -1,21 +1,29 @@
 class Solution {
     public int findJudge(int n, int[][] trust) {
-        if(n==1){
-            return 1;
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        for(int i=0;i<=n;i++){
+            adj.add(new ArrayList<>());
         }
-        int[] trustby=new int[n+1];
-        int[] truston=new int[n+1];
         for(int i=0;i<trust.length;i++){
-            int a=trust[i][0];
-            int b=trust[i][1];
-            trustby[a]++;
-            truston[b]++;
+            int u=trust[i][0];
+            int v=trust[i][1];
+            adj.get(u).add(v);
         }
-        for(int i=0;i<trustby.length;i++){
-            if(truston[i]==n-1 && trustby[i]==0){
+
+        int[] indegree=new int[n+1];
+
+        for(int i=1;i<=n;i++){
+            for(int neibr:adj.get(i)){
+                indegree[neibr]++;
+            }
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (indegree[i] == n - 1 && adj.get(i).size() == 0) {
                 return i;
             }
         }
+
         return -1;
     }
 }
