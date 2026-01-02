@@ -1,19 +1,20 @@
 class Solution {
     public int rob(int[] nums) {
-        int[] dp=new int[nums.length];
+        int[] dp=new int[nums.length+1];
         Arrays.fill(dp,-1);
-        return robber(nums,0,dp);
+        int ans=Math.max(robber(nums,dp,0),robber(nums,dp,1));
+        return ans;
     }
-    public int robber(int[] nums,int idx,int[] dp){
-        if(idx>=nums.length){
+    public int robber(int[] nums,int[] dp,int i){
+        if(i>=nums.length){
             return 0;
         }
-        if(dp[idx]!=-1){
-            return dp[idx];
+        if(dp[i]!=-1){
+            return dp[i];
         }
-        int skip=robber(nums,idx+1,dp);
-        int rob=nums[idx]+robber(nums,idx+2,dp);
-        return dp[idx]=Math.max(skip,rob);
-        
+        int rob=nums[i]+robber(nums,dp,i+2);
+        int dont=robber(nums,dp,i+1);
+        return dp[i]=Math.max(rob,dont);
+
     }
 }
