@@ -27,11 +27,19 @@ class Solution {
         return dp[i]=Math.max(taken,notTaken);
     }
     public int getIndex(int[][] arr,int l,int target){
-        for(int i=l;i<arr.length;i++){
-            if(arr[i][0]>=target){
-                return i;
+        int s=l;
+        int e=arr.length-1;
+        int res=arr.length;
+        while(s<=e){
+            int mid=s+(e-s)/2;
+            if(arr[mid][0]>=target){
+                res=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
             }
         }
-        return arr.length;
+        return res;
     }
 }
