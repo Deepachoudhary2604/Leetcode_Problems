@@ -1,24 +1,33 @@
 class Solution {
     Boolean[][] dp;
-    public boolean canPartition(int[] nums) {
-        int sum = 0;
-        for (int num : nums) sum += num;
-        if (sum % 2 != 0) return false;
-        int target = sum / 2;
-        int n = nums.length;
-        dp = new Boolean[n][target + 1];
-        return knap(nums, n - 1, target);
+    public boolean canPartition(int[] arr) {
+        int n=arr.length;
+        int s=0;
+        for(int i=0;i<arr.length;i++){
+            s+=arr[i];
+        }
+        if(s%2!=0){
+            return false;
+        }
+        int sum=s/2;
+        dp = new Boolean[n+1][sum+1]; 
+        return solve(arr,sum,n);
     }
-
-    private boolean knap(int[] nums, int index, int target) {
-        if (target == 0) return true;
-        if (index < 0 || target < 0) return false;
-
-        if (dp[index][target] != null)
-            return dp[index][target];
-
-        boolean take = knap(nums, index - 1, target - nums[index]);
-        boolean notTake = knap(nums, index - 1, target);
-        return dp[index][target] = take || notTake;
+    public Boolean solve(int[] arr,int sum,int n){
+        if(sum==0){
+            return true;
+        }
+        if(n==0){
+            return false;
+        }
+        if(dp[n][sum]!=null){
+            return dp[n][sum];
+        }
+        if(sum>=arr[n-1]){
+            return dp[n][sum]=solve(arr,sum-arr[n-1],n-1) || solve(arr,sum,n-1);
+        }
+        return dp[n][sum]=solve(arr,sum,n-1);
+        
     }
+    
 }
