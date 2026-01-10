@@ -24,6 +24,7 @@ class Solution {
             int time = cur[1];
 
             if (time > dist[node]) continue;
+            dist[node]=time;
 
             for (int[] nei : adj.get(node)) {
                 int v = nei[0];
