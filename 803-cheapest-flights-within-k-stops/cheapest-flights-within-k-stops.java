@@ -14,8 +14,10 @@ class Solution {
 
         PriorityQueue<int[]> q=new PriorityQueue<>((a,b)->a[0]-b[0]);
         q.offer(new int[] {0,src,0});
+
         int[] minStops = new int[n];
         Arrays.fill(minStops, Integer.MAX_VALUE);
+        
         while(!q.isEmpty()){
             int[] curr=q.poll();
             int cost=curr[0];
@@ -30,7 +32,7 @@ class Solution {
 
             if (stops >= minStops[node]) continue;
             minStops[node] = stops;
-            
+
             for(int[] neibr:adj.get(node)){
                 q.offer(new int[] {neibr[1]+cost,neibr[0],stops+1});
             }
