@@ -11,12 +11,12 @@ class Solution {
             adj.get(u).add(new double[]{v,prob});
             adj.get(v).add(new double[]{u,prob});
         }
+        PriorityQueue<double[]> pq=new PriorityQueue<>((a,b)->Double.compare(b[1],a[1]));
+        pq.add(new double[]{start,1.0});
         double[] prob=new double[n];
         prob[start]=1.0;
-        PriorityQueue<double[]> q=new PriorityQueue<>((a, b) -> Double.compare(b[1], a[1]));
-        q.add(new double[]{start,1.0});
-        while(!q.isEmpty()){
-            double[] val=q.poll();
+        while(!pq.isEmpty()){
+            double[] val=pq.poll();
             int node=(int)val[0];
             double p=val[1];
             if(node==end){
@@ -26,15 +26,16 @@ class Solution {
                 continue;
             }
             for(double[] neibr:adj.get(node)){
-                int neibrNode=(int)neibr[0];
+                int newNode=(int)neibr[0];
                 double neibrProb=neibr[1];
                 double newProb=p*neibrProb;
-                if(newProb>prob[neibrNode]){
-                    prob[neibrNode]=newProb;
-                    q.add(new double[]{neibrNode,newProb});
+                if(newProb>prob[newNode]){
+                    prob[newNode]=newProb;
+                    pq.add(new double[]{newNode,newProb});
                 }
             }
         }
         return 0.0;
+
     }
 }
