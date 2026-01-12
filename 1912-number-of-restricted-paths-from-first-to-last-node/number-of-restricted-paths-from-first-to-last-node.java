@@ -35,7 +35,7 @@ class Solution {
             if(v>dist[u]){
                 continue;
             }
-            
+            dist[u]=v;
             for(int[] neibr:adj.get(u)){
                 int node=neibr[0];
                 long d=neibr[1];
