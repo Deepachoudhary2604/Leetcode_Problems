@@ -39,7 +39,7 @@ class Solution {
             for(int[] neibr:adj.get(u)){
                 int node=neibr[0];
                 long d=neibr[1];
-                if (dist[u] != Long.MAX_VALUE && dist[u] + d < dist[node]) {
+                if (dist[u] + d < dist[node]) {
                     dist[node]=dist[u]+d;
                     pq.add(new long[]{node,dist[node]});
                 }
