@@ -7,7 +7,7 @@ class Solution {
                 buy=prices[i];
             }
             else{
-                maxProfit=Math.max(maxProfit,prices[i]-buy);
+                maxProfit=Math.max(maxProfit,prices[i]-buy); 
             }
         }
         return maxProfit;
