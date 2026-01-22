@@ -1,38 +1,39 @@
 class Solution {
+    int mod=1_000_000_007;
     public int sumSubarrayMins(int[] arr) {
-        int n = arr.length;
-        int mod = 1_000_000_007;
-
-        int[] left = new int[n];
-        int[] right = new int[n];
-
-        Stack<Integer> st = new Stack<>();
-
-        // PLE (Previous Less Element)
-        for (int i = 0; i < n; i++) {
-            while (!st.isEmpty() && arr[st.peek()] > arr[i]) {
+        int n=arr.length;
+        int[] psl=new int[n];
+        int[] psr=new int[n];
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[st.peek()]>arr[i]){
                 st.pop();
             }
-            left[i] = st.isEmpty() ? i + 1 : i - st.peek();
+            if(st.isEmpty()){
+                psl[i]=i+1;
+            }
+            else{
+                psl[i]=i-st.peek();
+            }
             st.push(i);
         }
-
         st.clear();
-
-        // NLE (Next Less or Equal Element)
-        for (int i = n - 1; i >= 0; i--) {
-            while (!st.isEmpty() && arr[st.peek()] >= arr[i]) {
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[i]<=arr[st.peek()]){
                 st.pop();
             }
-            right[i] = st.isEmpty() ? n - i : st.peek() - i;
+            if(st.isEmpty()){
+                psr[i]=n-i;
+            }
+            else{
+                psr[i]=st.peek()-i;
+            }
             st.push(i);
         }
-
-        long ans = 0;
-        for (int i = 0; i < n; i++) {
-            ans = (ans + (long) arr[i] * left[i] * right[i]) % mod;
+        long prod=0;
+        for(int i=0;i<n;i++){
+            prod = (prod + (long) arr[i] * psl[i] * psr[i]) % mod;
         }
-
-        return (int) ans;
+        return (int)prod;
     }
 }
