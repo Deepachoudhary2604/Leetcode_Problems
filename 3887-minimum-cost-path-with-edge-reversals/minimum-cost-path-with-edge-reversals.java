@@ -22,6 +22,7 @@ class Solution {
             if(dis[node] < d){
                 continue;
             }
+            dis[node]=d;
             for(int[] nbr : adj.get(node)){
                 int nn = nbr[0];
                 int wt = nbr[1];
