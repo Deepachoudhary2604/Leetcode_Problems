@@ -1,16 +1,15 @@
 class Solution {
     public int findTheWinner(int n, int k) {
-        Queue<Integer> q=new LinkedList<>();
+        ArrayList<Integer> ans=new ArrayList<>();
         for(int i=1;i<=n;i++){
-            q.add(i);
+            ans.add(i);
         }
-        
-        while(q.size()>1){
-            for(int i=1;i<=k-1;i++){
-                q.add(q.poll());
-            }
-            q.poll();
+        int i=0;
+        while(ans.size()>1){
+            int idx=(i+k-1)%ans.size();
+            ans.remove(idx);
+            i=idx;
         }
-        return q.poll();
+        return ans.get(0);
     }
 }
