@@ -4,7 +4,7 @@ class Solution {
         Queue<Integer> q=new LinkedList<>();
         int flip=0;
         for(int i=0;i<nums.length;i++){
-            if(!q.isEmpty() && q.peek()==i){
+            while(!q.isEmpty() && q.peek()==i){
                 q.poll();
             }
             int curr=nums[i];
