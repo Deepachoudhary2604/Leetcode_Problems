@@ -8,19 +8,15 @@ class Solution {
         if(sorted(adj)){
             return 0;
         } 
-
         int c=0;
-
         while(!sorted(adj)) {
-
             int min=Integer.MAX_VALUE;
             int pos=0;
-
             for (int i = 1; i < adj.size(); i++) {
                 int sum=adj.get(i-1)+adj.get(i);
                 if (sum<min) {
                     min=sum;
-                    pos=i - 1;
+                    pos=i-1;
                 }
             }
             adj.remove(pos+1);
