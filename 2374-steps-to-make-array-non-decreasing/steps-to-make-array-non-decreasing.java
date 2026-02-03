@@ -1,20 +1,18 @@
 class Solution {
     public int totalSteps(int[] nums) {
-        int n = nums.length;
-        int res = 0;
-        // stack stores pair: [value, steps]
-        Deque<int[]> stack = new ArrayDeque<>();
-        
-        for(int i = n - 1; i >= 0; i--) {
-            int steps = 0;
-            while(!stack.isEmpty() && nums[i] > stack.peek()[0]) {
-                steps = Math.max(steps + 1, stack.peek()[1]);
-                stack.pop();
+        int res=0;
+        int n=nums.length;
+        Stack<int[]> st=new Stack<>();
+
+        for(int i=n-1;i>=0;i--){
+            int step=0;
+            while(!st.isEmpty() && nums[i]>st.peek()[0]){
+                step=Math.max(step+1,st.peek()[1]);
+                st.pop();
             }
-            res = Math.max(res, steps);
-            stack.push(new int[]{nums[i], steps});
+            res=Math.max(res,step);
+            st.push(new int[]{nums[i],step});
         }
-        
         return res;
     }
 }
