@@ -1,88 +1,60 @@
 class Solution {
+    public int minimumPairRemoval(int[] nums) {
+        int n = nums.length;
+        long[] a = new long[n];
+        for (int i = 0; i < n; i++) a[i] = nums[i];
 
-  private static class Segment implements Comparable<Segment> {
-      int index;
-      long value;
-      long mergeCost;
-      Segment left;
-      Segment right;
+        int[] l = new int[n], r = new int[n];
+        boolean[] alive = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            l[i] = i - 1;
+            r[i] = i + 1;
+            alive[i] = true;
+        }
+        r[n - 1] = -1;
 
-      Segment(int idx, long val) {
-          index = idx;
-          value = val;
-      }
+        int bad = 0;
+        for (int i = 1; i < n; i++)
+            if (a[i] < a[i - 1]) bad++;
 
-      @Override
-      public int compareTo(Segment o) {
-          if (right == null || o.right == null) {
-              return right == null ? 1 : -1;
-          }
-          long diff = mergeCost - o.mergeCost;
-          if (diff != 0) return diff < 0 ? -1 : 1;
-          return index - o.index;
-      }
-  }
+        PriorityQueue<long[]> pq = new PriorityQueue<>(
+            (x, y) -> x[0] == y[0] ? Long.compare(x[1], y[1]) : Long.compare(x[0], y[0])
+        );
 
-  public int minimumPairRemoval(int[] nums) {
-      TreeSet<Segment> heap = new TreeSet<>();
-      int violations = 0;
+        for (int i = 0; i + 1 < n; i++)
+            pq.add(new long[]{a[i] + a[i + 1], i});
 
-      Segment current = null;
+        int ops = 0;
 
-      for (int i = 0; i < nums.length; i++) {
-          Segment node = new Segment(i, nums[i]);
+        while (bad > 0) {
+            long[] cur = pq.poll();
+            long sum = cur[0];
+            int i = (int) cur[1];
 
-          if (current != null) {
-              if (node.value < current.value) violations++;
+            if (!alive[i] || r[i] == -1) continue;
+            int j = r[i];
+            if (!alive[j] || a[i] + a[j] != sum) continue;
 
-              current.right = node;
-              node.left = current;
+            int li = l[i], rj = r[j];
 
-              current.mergeCost = current.value + node.value;
-              heap.add(current);
-          }
-          current = node;
-      }
+            if (li != -1 && a[i] < a[li]) bad--;
+            if (rj != -1 && a[rj] < a[j]) bad--;
+            if (a[j] < a[i]) bad--;
 
-      heap.add(current);
+            a[i] += a[j];
+            alive[j] = false;
+            r[i] = rj;
+            if (rj != -1) l[rj] = i;
 
-      int operations = 0;
+            if (li != -1 && a[i] < a[li]) bad++;
+            if (rj != -1 && a[rj] < a[i]) bad++;
 
-      while (violations > 0) {
-          operations++;
+            if (li != -1) pq.add(new long[]{a[li] + a[i], li});
+            if (rj != -1) pq.add(new long[]{a[i] + a[rj], i});
 
-          Segment best = heap.pollFirst();
-          Segment next = best.right;
+            ops++;
+        }
 
-          if (next.value < best.value) violations--;
-
-          best.value += next.value;
-          best.mergeCost = best.value + (next.right != null ? next.right.value : 0);
-
-          best.right = next.right;
-          if (next.right != null) {
-              if (next.right.value < next.value) violations--;
-              next.right.left = best;
-              if (best.value > next.right.value) violations++;
-          }
-
-          heap.remove(next);
-          heap.add(best);
-
-          Segment prev = best.left;
-          if (prev != null) {
-              heap.remove(prev);
-
-              if (prev.value > prev.mergeCost - prev.value) violations--;
-              if (prev.value > best.value) violations++;
-
-              prev.mergeCost = prev.value + best.value;
-              prev.right = best;
-
-              heap.add(prev);
-          }
-      }
-
-      return operations;
-  }
+        return ops;
+    }
 }
