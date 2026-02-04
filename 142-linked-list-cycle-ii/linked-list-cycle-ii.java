@@ -15,17 +15,17 @@ public class Solution {
         if(meet==null){
             return null;
         }
-        ListNode fast=meet;
         ListNode slow=head;
+        ListNode fast=meet;
         while(fast!=slow){
-            slow=slow.next;
             fast=fast.next;
+            slow=slow.next;
         }
         return slow;
     }
-    public static ListNode hasCycle(ListNode head){
-        ListNode fast=head;
+    public ListNode hasCycle(ListNode head) {
         ListNode slow=head;
+        ListNode fast=head;
         while(fast!=null && fast.next!=null){
             slow=slow.next;
             fast=fast.next.next;
