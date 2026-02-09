@@ -26,18 +26,14 @@ class Solution {
         }
         boolean leftp=contains(root.left,p);
         boolean rightq=contains(root.right,q);
-        if(leftp && rightq){
-            return root;
-        }
+        
         if(!leftp && rightq){
             return lowestCommonAncestor(root.right,p,q);
         }
         if(leftp && !rightq){
             return lowestCommonAncestor(root.left,p,q);
         }
-        if(!leftp && !rightq){
-            return root;
-        }
+        
         return root;
         
     }
