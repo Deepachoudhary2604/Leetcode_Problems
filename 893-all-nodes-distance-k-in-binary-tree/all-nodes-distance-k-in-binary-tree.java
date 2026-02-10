@@ -16,7 +16,7 @@ class Solution {
             int size = q.size();
 
             if (dist == k) {
-                return new ArrayList<>(q); // 🔥 nodes at distance k
+                return new ArrayList<>(q);
             }
 
             while (size-- > 0) {
