@@ -15,10 +15,10 @@
  */
 class Solution {
     public int amountOfTime(TreeNode root, int start) {
-        HashMap<Integer,List<Integer>> adj=new HashMap();
+        HashMap<Integer,List<Integer>> adj=new HashMap<>();
         makeGraph(adj,-1,root);
-        Queue<Integer> q=new LinkedList<>();
         Set<Integer> vis=new HashSet<>();
+        Queue<Integer> q=new LinkedList<>();
         q.add(start);
         vis.add(start);
         int min=-1;
@@ -42,10 +42,9 @@ class Solution {
         if(root==null){
             return;
         }
-        adj.putIfAbsent(root.val, new ArrayList<>());
+        adj.putIfAbsent(root.val,new ArrayList<>());
         if(parent!=-1){
             adj.get(root.val).add(parent);
-            // adj.get(parent).add(root.val);
         }
         if(root.left!=null){
             adj.get(root.val).add(root.left.val);
