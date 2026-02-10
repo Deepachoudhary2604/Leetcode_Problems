@@ -1,0 +1,50 @@
+class Solution {
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+
+        HashMap<Integer, List<Integer>> adj = new HashMap<>();
+        makeGraph(adj, -1, root);
+
+        Queue<Integer> q = new LinkedList<>();
+        Set<Integer> vis = new HashSet<>();
+
+        q.add(target.val);
+        vis.add(target.val);
+
+        int dist = 0;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+
+            if (dist == k) {
+                return new ArrayList<>(q); // 🔥 nodes at distance k
+            }
+
+            while (size-- > 0) {
+                int node = q.poll();
+                for (int nei : adj.get(node)) {
+                    if (!vis.contains(nei)) {
+                        vis.add(nei);
+                        q.add(nei);
+                    }
+                }
+            }
+            dist++;
+        }
+        return new ArrayList<>();
+    }
+
+    public void makeGraph(HashMap<Integer, List<Integer>> adj, int parent, TreeNode root) {
+        if (root == null) return;
+
+        adj.putIfAbsent(root.val, new ArrayList<>());
+
+        if (parent != -1) {
+            adj.putIfAbsent(parent, new ArrayList<>());
+            adj.get(root.val).add(parent);
+            adj.get(parent).add(root.val);   // ✅ IMPORTANT
+        }
+
+        makeGraph(adj, root.val, root.left);
+        makeGraph(adj, root.val, root.right);
+    }
+}
