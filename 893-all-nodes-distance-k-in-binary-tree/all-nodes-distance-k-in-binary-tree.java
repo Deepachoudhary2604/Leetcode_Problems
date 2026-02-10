@@ -4,29 +4,26 @@ class Solution {
         HashMap<Integer, List<Integer>> adj = new HashMap<>();
         makeGraph(adj, -1, root);
 
-        Queue<Integer> q = new LinkedList<>();
-        Set<Integer> vis = new HashSet<>();
-
+        Set<Integer> vis=new HashSet<>();
+        Queue<Integer> q=new LinkedList<>();
         q.add(target.val);
         vis.add(target.val);
+        int dist=0;
+        while(!q.isEmpty()){
 
-        int dist = 0;
-
-        while (!q.isEmpty()) {
-            int size = q.size();
-
-            if (dist == k) {
+            int n=q.size();
+            if(dist==k){
                 return new ArrayList<>(q);
             }
-
-            while (size-- > 0) {
-                int node = q.poll();
-                for (int nei : adj.get(node)) {
-                    if (!vis.contains(nei)) {
-                        vis.add(nei);
-                        q.add(nei);
+            while(n>0){
+                int val=q.poll();
+                for(int neibr:adj.get(val)){
+                    if(!vis.contains(neibr)){
+                        q.add(neibr);
+                        vis.add(neibr);
                     }
                 }
+                n--;
             }
             dist++;
         }
