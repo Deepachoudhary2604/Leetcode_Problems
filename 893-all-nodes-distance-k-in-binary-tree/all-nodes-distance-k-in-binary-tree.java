@@ -34,17 +34,21 @@ class Solution {
     }
 
     public void makeGraph(HashMap<Integer, List<Integer>> adj, int parent, TreeNode root) {
-        if (root == null) return;
-
-        adj.putIfAbsent(root.val, new ArrayList<>());
-
-        if (parent != -1) {
-            adj.putIfAbsent(parent, new ArrayList<>());
-            adj.get(root.val).add(parent);
-            adj.get(parent).add(root.val);   // ✅ IMPORTANT
+        if(root==null){
+            return;
         }
-
-        makeGraph(adj, root.val, root.left);
-        makeGraph(adj, root.val, root.right);
+        adj.putIfAbsent(root.val,new ArrayList<>());
+        if(parent!=-1){
+            adj.get(root.val).add(parent);
+            // adj.get(parent).add(root.val);
+        }
+        if(root.left!=null){
+            adj.get(root.val).add(root.left.val);
+        }
+        if(root.right!=null){
+            adj.get(root.val).add(root.right.val);
+        }
+        makeGraph(adj,root.val,root.left);
+        makeGraph(adj,root.val,root.right);
     }
 }
