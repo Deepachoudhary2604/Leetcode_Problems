@@ -54,17 +54,17 @@ class Solution {
 
         while (!q.isEmpty()) {
             int size = q.size();                 
-            ArrayList<Integer> level = new ArrayList<>();
+            ArrayList<Integer> l1 = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
                 TreeNode node = q.poll();
-                level.add(node.val);
+                l1.add(node.val);
 
                 if (node.left != null) q.add(node.left);
                 if (node.right != null) q.add(node.right);
             }
 
-            ans.add(level);                      
+            ans.add(l1);                      
         }
         
     }
