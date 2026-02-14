@@ -26,8 +26,8 @@ class Solution {
             return;
         }
         dfs(root.right);
-        TreeNode temp=root;
-        sum+=temp.val;
+        
+        sum+=root.val;
         root.val=sum;
         dfs(root.left);
 
