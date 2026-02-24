@@ -1,20 +1,23 @@
 class Solution {
+    int[] dp;
     public int minCostClimbingStairs(int[] cost) {
-        int [] dp=new int[cost.length];
+        int n=cost.length;
+        dp=new int[n+1];
         Arrays.fill(dp,-1);
-        int zero=climb(cost,0,dp);
-        int first=climb(cost,1,dp);
-        return Math.min(zero,first);
+        int first=solve(cost,0);
+        int second=solve(cost,1);
+        return Math.min(first,second);
     }
-    public static int climb(int[] cost,int i,int[] dp){
+    public int solve(int[] cost,int i){
         if(i>=cost.length){
             return 0;
         }
+        
         if(dp[i]!=-1){
             return dp[i];
         }
-        int f=climb(cost,i+1,dp);
-        int s=climb(cost,i+2,dp);
-        return dp[i]=cost[i]+Math.min(f,s);   
+        int one=solve(cost,i+1);
+        int two=solve(cost,i+2);
+        return dp[i]=cost[i]+Math.min(one,two);
     }
-}
+}   
