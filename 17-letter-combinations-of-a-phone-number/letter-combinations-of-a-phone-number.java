@@ -1,5 +1,5 @@
 class Solution {
-    static String[] key = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    String[] key = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
     
     public List<String> letterCombinations(String digits) {
         List<String> l1 = new ArrayList<>();
@@ -10,7 +10,7 @@ class Solution {
         return l1;
     }
 
-    public static void print(String ques, String ans, List<String> l1, int idx) {
+    public void print(String ques, String ans, List<String> l1, int idx) {
         // base case
         if (idx == ques.length()) {
             l1.add(ans);
