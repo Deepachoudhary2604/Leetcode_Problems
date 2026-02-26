@@ -1,4 +1,5 @@
 class Solution {    
+    List<List<String>> ans=new ArrayList<>();
     public List<List<String>> solveNQueens(int n) {
         char[][] arr=new char[n][n];
         for(int i=0;i<n;i++){
@@ -6,41 +7,39 @@ class Solution {
                 arr[i][j]='.';
             }
         }
-        List<List<String>> ans=new ArrayList<>();
-        helper(arr,ans,0);
+        helper(arr,0);
         return ans;
     }
-    public void helper(char[][] arr,List<List<String>> ans,int row){
+    public void helper(char[][] arr,int row){
         int n=arr.length;
-        if(row==n){
-            List<String> l=new ArrayList<>();
+        if(n==row){
+            List<String> temp=new ArrayList<>();
             for(int i=0;i<n;i++){
                 String str="";
                 for(int j=0;j<n;j++){
                     str+=arr[i][j];
                 }
-                l.add(str);
+                temp.add(str);
             }
-            ans.add(l);
+            ans.add(new ArrayList<>(temp));
             return;
         }
         for(int i=0;i<n;i++){
             if(isSafe(arr,row,i)){
                 arr[row][i]='Q';
-                helper(arr,ans,row+1);
+                helper(arr,row+1);
                 arr[row][i]='.';
             }
         }
     }
     public boolean isSafe(char[][] arr,int row,int col){
-        int n=arr.length;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<arr.length;i++){
             if(arr[row][i]=='Q'){
                 return false;
             }
         }
-        for(int j=0;j<n;j++){
-            if(arr[j][col]=='Q'){
+        for(int i=0;i<arr.length;i++){
+            if(arr[i][col]=='Q'){
                 return false;
             }
         }
@@ -55,16 +54,7 @@ class Solution {
         }
         i=row;
         j=col;
-        while(i>=0 && j<n){
-            if(arr[i][j]=='Q'){
-                return false;
-            }
-            i--;
-            j++;
-        }
-        i=row;
-        j=col;
-        while(i<n && j>=0){
+        while(i<arr.length && j>=0){
             if(arr[i][j]=='Q'){
                 return false;
             }
@@ -73,11 +63,20 @@ class Solution {
         }
         i=row;
         j=col;
-        while(i<n && j<n){
+        while(i<arr.length && j<arr.length){
             if(arr[i][j]=='Q'){
                 return false;
             }
             i++;
+            j++;
+        }
+        i=row;
+        j=col;
+        while(i>=0 && j<arr.length){
+            if(arr[i][j]=='Q'){
+                return false;
+            }
+            i--;
             j++;
         }
         return true;
