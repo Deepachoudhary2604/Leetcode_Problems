@@ -16,14 +16,11 @@
 class Solution {
     public int maxLevelSum(TreeNode root) {
         
-        if (root == null) return 0;
-        int maxLevel=1;
+        if (root== null) return 0;
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
-        int level=1;
-        int ans=Integer.MIN_VALUE;
+        List<Integer> ans=new ArrayList<>();
         while (!q.isEmpty()) {
-
             int size = q.size();
             int sum=0;
             for (int i = 0; i < size; i++) {
@@ -32,14 +29,17 @@ class Solution {
                 if (node.left != null) q.offer(node.left);
                 if (node.right != null) q.offer(node.right);
             }
-
-            if(ans<sum){
-                ans=sum;
-                maxLevel=level;
-            }
-            level++;
+            ans.add(sum);
         }
-        return maxLevel;
+        int max=Integer.MIN_VALUE;
+        int level=0;
+        for(int i=0;i<ans.size();i++){
+            if(ans.get(i)>max){
+                max=ans.get(i);
+                level=i+1;
+            }
+        }
+        return level;
     }
     
 }
