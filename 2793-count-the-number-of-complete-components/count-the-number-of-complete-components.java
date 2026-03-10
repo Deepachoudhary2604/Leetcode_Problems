@@ -21,10 +21,7 @@ class Solution {
                 ed = 0;
 
                 dfs(adj, vis, i);
-
-                ed= ed/ 2;
-
-                if (ed == nodes * (nodes - 1) / 2) {
+                if (ed == nodes * (nodes - 1)) {
                     c++;
                 }
             }
