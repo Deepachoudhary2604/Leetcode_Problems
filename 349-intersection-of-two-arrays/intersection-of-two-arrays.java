@@ -1,25 +1,29 @@
 import java.util.HashSet;
 import java.util.ArrayList;
 class Solution {
-    public int[] intersection(int[] nums1, int[] nums2) {
+    public int[] intersection(int[] nums1,int[] nums2) {
+
        HashSet<Integer> set1=new HashSet<>();
-       for(int i=0;i<nums1.length;i++){
-        set1.add(nums1[i]);
+        HashSet<Integer> set3=new HashSet<>();
+       for(int num:nums1){
+        set1.add(num);
+        set3.add(num);
        }
        HashSet<Integer> set2=new HashSet<>();
-       for(int i=0;i<nums2.length;i++){
-        set2.add(nums2[i]);
+       for(int num:nums2){
+        set2.add(num);
+        set3.add(num);
        }
-       ArrayList<Integer> l1=new ArrayList<>();
-       for(int v:set1){
-        if(set2.contains(v)){
-            l1.add(v);
+       ArrayList<Integer> ans=new ArrayList<>();
+       for(int i:set3){
+        if(set1.contains(i) && set2.contains(i)){
+            ans.add(i);
         }
        }
-       int[] ans=new int[l1.size()];
-       for(int i=0;i<ans.length;i++){
-        ans[i]=l1.get(i);
+       int[] temp=new int[ans.size()];
+       for(int i=0;i<ans.size();i++){
+        temp[i]=ans.get(i);
        }
-       return ans;
+       return temp;
     }
 }
