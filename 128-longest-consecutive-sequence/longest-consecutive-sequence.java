@@ -3,10 +3,6 @@ class Solution {
         if(nums.length==0){
             return 0;
         }
-        HashSet<Integer> set=new HashSet<>();
-        for(int num:nums){
-            set.add(num);
-        }
         Arrays.sort(nums);
         int ans=1;
         int count=1;
