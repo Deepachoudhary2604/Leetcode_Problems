@@ -22,7 +22,6 @@ class Solution {
             ans.add(root.val);
         }
         helper(root.right,l+1,ans);
-        
         helper(root.left,l+1,ans);
     }
     public List<Integer> rightSideView(TreeNode root) {
