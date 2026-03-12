@@ -41,7 +41,6 @@ class Solution {
         for(int i=ans.size()-1;i>=0;i--){
             List<Integer> l=ans.get(i);
             r.add(new ArrayList<>(l));
-
         }
         return r;
     }
