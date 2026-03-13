@@ -12,13 +12,14 @@ class Solution {
         return island;
     }
     public void dfs(char[][] grid,int sr,int sc){
-        if(sr<0 || sc<0 || sr>=grid.length || sc>=grid[0].length || grid[sr][sc]!='1'){
+        if(sr<0 || sr>=grid.length || sc<0 || sc>=grid[0].length || grid[sr][sc]!='1'){
             return;
         }
-        grid[sr][sc]='#';
+        grid[sr][sc]='$';
+        //4 calls
         dfs(grid,sr+1,sc);
         dfs(grid,sr-1,sc);
-        dfs(grid,sr,sc+1);
         dfs(grid,sr,sc-1);
+        dfs(grid,sr,sc+1);
     }
 }
