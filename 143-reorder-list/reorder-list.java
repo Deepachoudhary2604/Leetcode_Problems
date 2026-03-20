@@ -1,36 +1,41 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
     public void reorderList(ListNode head) {
-        if (head == null) return;
-
-        // Step 1: Find the middle of the list
-        ListNode slow = head, fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        ArrayList<Integer> list=new ArrayList<>();
+        ListNode temp=head;
+        while(temp!=null){
+            list.add(temp.val);
+            temp=temp.next;
         }
 
-        // Step 2: Reverse the second half of the list
-        ListNode second = slow.next;
-        slow.next = null;
-        ListNode node = null;
 
-        while (second != null) {
-            ListNode temp = second.next;
-            second.next = node;
-            node = second;
-            second = temp;
+        int i=0;
+        int j=list.size()-1;
+        List<Integer> ans=new ArrayList<>();
+        for(int k=0;k<list.size();k++){
+            if(k%2==0){
+                ans.add(list.get(i));
+                i++;
+            }
+            else{
+                ans.add(list.get(j));
+                j--;
+            }
         }
 
-        // Step 3: Merge the two halves
-        ListNode first = head;
-        second = node;
-
-        while (second != null) {
-            ListNode temp1 = first.next, temp2 = second.next;
-            first.next = second;
-            second.next = temp1;
-            first = temp1;
-            second = temp2;
-        }        
+        temp=head;
+        for(int k=0;k<ans.size();k++){
+            temp.val=ans.get(k);
+            temp=temp.next;
+        }
     }
 }
