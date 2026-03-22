@@ -16,17 +16,17 @@ class Solution {
                 pq.add(lists[i]);
             }
         }
-        ListNode dummy=new ListNode();
+        ListNode dummy=new ListNode(-1);
         ListNode temp=dummy;
         while(!pq.isEmpty()){
-            ListNode item=pq.poll();
-            dummy.next=item;
-            dummy=dummy.next;
-            if(item.next!=null){
-                pq.add(item.next);
+            ListNode val=pq.poll();
+            temp.next=val;
+            temp=temp.next;
+            if(val.next!=null){
+                pq.add(val.next);
             }
         }
-        return temp.next;
+        return dummy.next;
     }
 }
 
