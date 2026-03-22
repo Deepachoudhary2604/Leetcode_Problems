@@ -11,19 +11,19 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        ListNode meet=hasCycle(head);
+        ListNode meet=cycle(head);
         if(meet==null){
             return null;
         }
         ListNode slow=head;
         ListNode fast=meet;
-        while(fast!=slow){
-            fast=fast.next;
+        while(slow!=fast){
             slow=slow.next;
+            fast=fast.next;
         }
         return slow;
     }
-    public ListNode hasCycle(ListNode head) {
+    public ListNode cycle(ListNode head){
         ListNode slow=head;
         ListNode fast=head;
         while(fast!=null && fast.next!=null){
