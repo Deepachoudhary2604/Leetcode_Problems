@@ -27,5 +27,6 @@ class Solution {
             root=root.right;
         }
         root.right=right;
+
     }
 }
