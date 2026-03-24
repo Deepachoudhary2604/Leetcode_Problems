@@ -20,7 +20,7 @@ class Solution {
                 for(int neibr:adj.get(val)){
                     if(!vis.contains(neibr)){
                         q.add(neibr);
-                        vis.add(neibr);
+                         vis.add(neibr);
                     }
                 }
                 n--;
