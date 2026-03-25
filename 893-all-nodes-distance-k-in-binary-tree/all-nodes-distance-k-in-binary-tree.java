@@ -1,51 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-
-        HashMap<Integer, List<Integer>> adj = new HashMap<>();
-        makeGraph(adj, -1, root);
-
-        Set<Integer> vis=new HashSet<>();
+        HashMap<Integer,List<Integer>> map=new HashMap<>();
+        makeGraph(root,map,-1);
         Queue<Integer> q=new LinkedList<>();
         q.add(target.val);
-        vis.add(target.val);
-        int dist=0;
+        HashSet<Integer> set=new HashSet<>();
+        set.add(target.val);
+        int dist=0;;
         while(!q.isEmpty()){
-
-            int n=q.size();
+            int size=q.size();
             if(dist==k){
                 return new ArrayList<>(q);
             }
-            while(n>0){
-                int val=q.poll();
-                for(int neibr:adj.get(val)){
-                    if(!vis.contains(neibr)){
+            while(size>0){
+                int node=q.poll();
+                for(int neibr:map.get(node)){
+                    if(!set.contains(neibr)){
+                        set.add(neibr);
                         q.add(neibr);
-                         vis.add(neibr);
                     }
                 }
-                n--;
+                size--;
             }
             dist++;
         }
         return new ArrayList<>();
     }
-
-    public void makeGraph(HashMap<Integer, List<Integer>> adj, int parent, TreeNode root) {
+    public void makeGraph(TreeNode root,HashMap<Integer,List<Integer>> map,int parent){
         if(root==null){
             return;
         }
-        adj.putIfAbsent(root.val,new ArrayList<>());
+        map.putIfAbsent(root.val,new ArrayList<>());
         if(parent!=-1){
-            adj.get(root.val).add(parent);
-            // adj.get(parent).add(root.val);
+            map.get(root.val).add(parent);
         }
         if(root.left!=null){
-            adj.get(root.val).add(root.left.val);
+            map.get(root.val).add(root.left.val);
         }
         if(root.right!=null){
-            adj.get(root.val).add(root.right.val);
+            map.get(root.val).add(root.right.val);
         }
-        makeGraph(adj,root.val,root.left);
-        makeGraph(adj,root.val,root.right);
+        makeGraph(root.left,map,root.val);
+        makeGraph(root.right,map,root.val);
     }
+    
 }
