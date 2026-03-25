@@ -1,34 +1,32 @@
 class Solution {
-    public int findCircleNum(int[][] arr) {
-        int ans=0;
+    public int findCircleNum(int[][] edges) {
         ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
-        for(int i=0;i<arr.length;i++){
+        for(int i=0;i<edges.length;i++){
             adj.add(new ArrayList<>());
         }
-
-        for(int i=0;i<arr.length;i++){
-            for(int j=0;j<arr[0].length;j++){
-                if(arr[i][j]==1){
+        for(int i=0;i<edges.length;i++){
+            for(int j=0;j<edges[i].length;j++){
+                if(edges[i][j]==1 && i!=j){
                     adj.get(i).add(j);
+                    adj.get(j).add(i);
                 }
             }
         }
-
-        boolean[] vis=new boolean[arr.length];
-        for(int i=0;i<vis.length;i++){
+        int c=0;
+        boolean[] vis=new boolean[adj.size()];
+        for(int i=0;i<adj.size();i++){
             if(!vis[i]){
-                dfs(adj,i,vis);
-                ans++;
+                dfs(adj,vis,i);
+                c++;
             }
         }
-
-        return ans;
+        return c;
     }
-    public void dfs(ArrayList<ArrayList<Integer>> adj,int i,boolean[] vis){
-        vis[i]=true;
-        for(int neibr:adj.get(i)){
+    public void dfs(ArrayList<ArrayList<Integer>> adj,boolean[] vis,int st){
+        vis[st]=true;
+        for(int neibr:adj.get(st)){
             if(!vis[neibr]){
-                dfs(adj,neibr,vis);
+                dfs(adj,vis,neibr);
             }
         }
     }
