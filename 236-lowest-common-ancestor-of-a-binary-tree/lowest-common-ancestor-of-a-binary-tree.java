@@ -11,17 +11,18 @@ class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(p==root || q==root){
             return root;
+
         }
         boolean leftp=contains(root.left,p);
         boolean rightq=contains(root.right,q);
-        if((leftp && rightq) || (!leftp && !rightq)) {
+        if((leftp && rightq) || (!leftp && !rightq)){
             return root;
-        }
-        if(!leftp && rightq){
-            return lowestCommonAncestor(root.right,p,q);
         }
         if(leftp && !rightq){
             return lowestCommonAncestor(root.left,p,q);
+        }
+        if(!leftp && rightq){
+            return lowestCommonAncestor(root.right,p,q);
         }
         return root;
     }
