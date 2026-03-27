@@ -24,10 +24,12 @@ class Solution {
         if(dp[n][sum]!=null){
             return dp[n][sum];
         }
+        boolean pick=false;
         if(sum>=arr[n-1]){
-            return dp[n][sum]=solve(arr,sum-arr[n-1],n-1) || solve(arr,sum,n-1);
+            pick=solve(arr,sum-arr[n-1],n-1) || solve(arr,sum,n-1);
         }
-        return dp[n][sum]=solve(arr,sum,n-1);
+        boolean not=solve(arr,sum,n-1);
+        return dp[n][sum]=pick || not;
         
     }
     
