@@ -14,12 +14,13 @@ class Solution {
         return solve(arr,sum,n);
     }
     public Boolean solve(int[] arr,int sum,int n){
-        if(sum==0){
-            return true;
-        }
         if(n==0){
+            if(sum==0){
+                return true;
+            }
             return false;
         }
+       
         if(dp[n][sum]!=null){
             return dp[n][sum];
         }
