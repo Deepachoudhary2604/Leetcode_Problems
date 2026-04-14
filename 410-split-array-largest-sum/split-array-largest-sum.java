@@ -1,24 +1,24 @@
 class Solution {
-    public int splitArray(int[] nums, int k) {
+    public int splitArray(int[] arr, int k) {
         int s=0;
         int e=0;
-        for(int i=0;i<nums.length;i++){
-            s=Math.max(nums[i],s);
-            e+=nums[i];
+        for(int i:arr){
+            s=Math.max(i,s);
+            e+=i;
         }
-        int ans=0;
+        int ans=-1;
         while(s<=e){
             int mid=s+(e-s)/2;
-            int split=1;
-            int count=0;
-            for(int i=0;i<nums.length;i++){
-                count+=nums[i];
-                if(count>mid){
-                    split++;
-                    count=nums[i];
+            int pages=0;
+            int c=1;
+            for(int i=0;i<arr.length;i++){
+                pages+=arr[i];
+                if(pages>mid){
+                    c++;
+                    pages=arr[i];
                 }
             }
-            if(split<=k){
+            if(c<=k){
                 ans=mid;
                 e=mid-1;
             }
