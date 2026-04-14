@@ -5,10 +5,10 @@ class Solution {
         for(int i=0;i<piles.length;i++){
             e=Math.max(e,piles[i]);
         }
-        int ans=0;
+        int ans=-1;
         while(s<=e){
             int mid=s+(e-s)/2;
-            if(caneat(piles,mid,h)){
+            if(canEat(piles,mid,h)){
                 e=mid-1;
                 ans=mid;
             }
@@ -18,14 +18,13 @@ class Solution {
         }
         return ans;
     }
-    public boolean caneat(int[] piles,int mid,int h){
+    public boolean canEat(int[] piles,int mid,int h){
         long hour=0;
         for(int pile:piles){
             hour+=(pile/mid);
             if(pile%mid!=0){
                 hour++;
             }
-
         }
         return hour<=h;
     }
