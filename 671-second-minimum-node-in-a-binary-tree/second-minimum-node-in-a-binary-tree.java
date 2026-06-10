@@ -1,47 +1,34 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-    List<Integer> ans=new ArrayList<>();
-    public int findSecondMinimumValue(TreeNode root) {
-        if(root==null){
-            return -1;
-        }
-        
-        helper(root);
-        HashSet<Integer> set=new HashSet<>();
-        for(int i=0;i<ans.size();i++){
-            set.add(ans.get(i));
-
-        }
-        ArrayList<Integer> res=new ArrayList<>();
-        for(int num:set){
-            res.add(num);
-        }
-        if(res.size()<=1){
-            return -1;
-        }
-        Collections.sort(res);
-        return res.get(1);
-    }
-    public void helper(TreeNode root){
-        if(root==null){
+    public void pre(TreeNode root, List<Integer> ans) {
+        if (root == null) {
             return;
         }
         ans.add(root.val);
-        helper(root.left);
-        helper(root.right);
+        pre(root.left, ans);
+        pre(root.right, ans);
+    }
+
+    public int findSecondMinimumValue(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        pre(root, ans);
+
+        long min1 = Long.MAX_VALUE;
+        long min2 = Long.MAX_VALUE;
+
+        for (int i = 0; i < ans.size(); i++) {
+            if (ans.get(i) < min1) {
+                min2 = min1;
+                min1 = ans.get(i);
+            } 
+            else if (ans.get(i) > min1 && ans.get(i) < min2) {
+                min2 = ans.get(i);
+            }
+        }
+
+        if (min2 == Long.MAX_VALUE) {
+            return -1;
+        }
+
+        return (int) min2;
     }
 }
