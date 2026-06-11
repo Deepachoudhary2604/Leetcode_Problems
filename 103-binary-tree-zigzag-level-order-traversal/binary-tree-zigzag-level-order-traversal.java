@@ -13,48 +13,47 @@
  *     }
  * }
  */
-import java.util.*;
 class Solution {
-    public List<Integer> level1(TreeNode root,int n,List<Integer> l1){
-        if(root==null){
-            return l1;
+    List<List<Integer>> ans=new ArrayList<>();
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        int h=height(root);
+        for(int i=1;i<=h;i++){
+            if(i%2!=0){
+                ans.add(level1(root,i,new ArrayList<>()));
+            }
+            else{
+                ans.add(level2(root,i,new ArrayList<>()));
+            }
         }
-        if(n==1){
-            l1.add(root.val);
-        }
-        level1(root.left,n-1,l1);
-        level1(root.right,n-1,l1);
-        return l1;
+        return ans;
     }
-    public List<Integer> level2(TreeNode root,int n,List<Integer> l1){
+    public List<Integer> level1(TreeNode root,int n,List<Integer> arr){
         if(root==null){
-            return l1;
+            return arr;
         }
         if(n==1){
-            l1.add(root.val);
+            arr.add(root.val);
         }
-        level2(root.right,n-1,l1);
-        level2(root.left,n-1,l1);
-        return l1;
+        level1(root.left,n-1,arr);
+        level1(root.right,n-1,arr);
+        return arr;
+    }
+    public List<Integer> level2(TreeNode root,int n,List<Integer> arr){
+        if(root==null){
+            return arr;
+        }
+        if(n==1){
+            arr.add(root.val);
+        }
+        level2(root.right,n-1,arr);
+        level2(root.left,n-1,arr);
+        return arr;
     }
     public int height(TreeNode root){
         if(root==null){
             return 0;
+
         }
         return 1+Math.max(height(root.left),height(root.right));
-    }
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> l2=new ArrayList<>();
-        int level=height(root);
-        for(int i=1;i<=level;i++){
-            List<Integer> l1=new ArrayList<>();
-            if(i%2==0){
-                l2.add(level2(root,i,l1));
-            }
-            else{
-                l2.add(level1(root,i,l1));
-            }
-        }
-        return l2;
     }
 }
