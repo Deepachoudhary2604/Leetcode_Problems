@@ -1,32 +1,33 @@
 class Solution {
-    public int findCircleNum(int[][] edges) {
+    public int findCircleNum(int[][] isConnected) {
         ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
-        for(int i=0;i<edges.length;i++){
+        int n=isConnected.length;
+        for(int i=0;i<n;i++){
             adj.add(new ArrayList<>());
         }
-        for(int i=0;i<edges.length;i++){
-            for(int j=0;j<edges[i].length;j++){
-                if(edges[i][j]==1 && i!=j){
+        
+        for(int i=0;i<isConnected.length;i++){
+            for(int j=0;j<isConnected[i].length;j++){
+                if(isConnected[i][j]==1){
                     adj.get(i).add(j);
-                    adj.get(j).add(i);
                 }
             }
         }
+        boolean[] vis=new boolean[n];
         int c=0;
-        boolean[] vis=new boolean[adj.size()];
-        for(int i=0;i<adj.size();i++){
+        for(int i=0;i<n;i++){
             if(!vis[i]){
-                dfs(adj,vis,i);
+                dfs(i,adj,vis);
                 c++;
             }
         }
         return c;
     }
-    public void dfs(ArrayList<ArrayList<Integer>> adj,boolean[] vis,int st){
-        vis[st]=true;
-        for(int neibr:adj.get(st)){
+    public void dfs(int node,ArrayList<ArrayList<Integer>> adj,boolean[] vis){
+        vis[node]=true;
+        for(int neibr:adj.get(node)){
             if(!vis[neibr]){
-                dfs(adj,vis,neibr);
+                dfs(neibr,adj,vis);
             }
         }
     }
