@@ -1,55 +1,42 @@
 class Solution {
     public int minCostConnectPoints(int[][] points) {
-        int n = points.length;
-        
-        // Step 1: Build adjacency list
-        ArrayList<ArrayList<int[]>> adj = new ArrayList<>();
-        for(int i = 0; i < n; i++){
+        int n=points.length;
+        ArrayList<ArrayList<int[]>> adj=new ArrayList<>();
+        for(int i=0;i<n;i++){
             adj.add(new ArrayList<>());
         }
-        
-        for(int i = 0; i < n; i++){
-            for(int j = i + 1; j < n; j++){
-                
-                int dist = Math.abs(points[i][0] - points[j][0]) +
-                           Math.abs(points[i][1] - points[j][1]);
-                
-                adj.get(i).add(new int[]{j, dist});
-                adj.get(j).add(new int[]{i, dist});
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int dist=Math.abs(points[i][0]-points[j][0])+Math.abs(points[i][1]-points[j][1]);
+                adj.get(i).add(new int[]{j,dist});
+                adj.get(j).add(new int[]{i,dist});
             }
         }
-        
-        // Step 2: Run Prim's
-        boolean[] visited = new boolean[n];
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->a[0]-b[0]);
-        
-        pq.offer(new int[]{0,0});
-        
-        int totalCost = 0;
-        int edgesUsed = 0;
-        
-        while(edgesUsed < n){
-            
-            int[] curr = pq.poll();
-            int cost = curr[0];
-            int node = curr[1];
-            
-            if(visited[node]) continue;
-            
-            visited[node] = true;
-            totalCost += cost;
-            edgesUsed++;
-            
-            for(int[] neighbor : adj.get(node)){
-                int nextNode = neighbor[0];
-                int nextCost = neighbor[1];
-                
-                if(!visited[nextNode]){
-                    pq.offer(new int[]{nextCost, nextNode});
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[1]-b[1]);
+        pq.add(new int[]{0,0});
+        int totalcost=0;
+        int totaledge=0;
+        boolean[] vis=new boolean[n];
+        while(totaledge<n){
+            int[] temp=pq.poll();
+            int node=temp[0];
+            int wt=temp[1];
+            if(vis[node]){
+                continue;
+
+            }
+            vis[node]=true;
+            totalcost+=wt;
+            totaledge++;
+            for(int[] neibr:adj.get(node)){
+                int nextNode=neibr[0];
+                int nextWt=neibr[1];
+                if(!vis[nextNode]){
+
+                    pq.add(new int[]{nextNode,nextWt});
                 }
             }
         }
-        
-        return totalCost;
+        return totalcost;
     }
 }
