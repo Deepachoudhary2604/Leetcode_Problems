@@ -26,12 +26,12 @@ class Solution {
                 continue;
             }
             for(double[] neibr:adj.get(node)){
-                int newNode=(int)neibr[0];
-                double neibrProb=neibr[1];
-                double newProb=p*neibrProb;
-                if(newProb>prob[newNode]){
-                    prob[newNode]=newProb;
-                    pq.add(new double[]{newNode,newProb});
+                int nextNode=(int)neibr[0];
+                double nextProb=neibr[1];
+                
+                if(prob[node]*nextProb>prob[nextNode]){
+                    prob[nextNode]=prob[node]*nextProb;
+                    pq.add(new double[]{nextNode,prob[nextNode]});
                 }
             }
         }
