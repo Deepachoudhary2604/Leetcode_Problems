@@ -9,15 +9,18 @@ class Solution {
                     col.add(j);
                 }
             }
+
         }
         for(int i=0;i<row.size();i++){
-            for(int j=0;j<matrix[row.get(i)].length;j++){
-                matrix[row.get(i)][j]=0;
+            int r=row.get(i);
+            for(int j=0;j<matrix[r].length;j++){
+                matrix[r][j]=0;
             }
         }
         for(int i=0;i<col.size();i++){
+            int c=col.get(i);
             for(int j=0;j<matrix.length;j++){
-                matrix[j][col.get(i)]=0;
+                matrix[j][c]=0;
             }
         }
     }
