@@ -11,7 +11,7 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        ListNode meet=cycle(head);
+        ListNode meet=hasCycle(head);
         if(meet==null){
             return null;
         }
@@ -23,12 +23,12 @@ public class Solution {
         }
         return slow;
     }
-    public ListNode cycle(ListNode head){
+    public ListNode hasCycle(ListNode head){
         ListNode slow=head;
         ListNode fast=head;
-        while(fast!=null && fast.next!=null){
-            slow=slow.next;
+        while(fast!=null && fast.next!=null ){
             fast=fast.next.next;
+            slow=slow.next;
             if(slow==fast){
                 return slow;
             }
