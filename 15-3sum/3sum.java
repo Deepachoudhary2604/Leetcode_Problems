@@ -8,23 +8,24 @@ class Solution {
             int k=nums.length-1;
             while(j<k){
                 int sum=nums[i]+nums[j]+nums[k];
-                if(sum>0){
-                    k--;
-                }
-                else if(sum<0){
-                    j++;
-                }
-                else{
+                if(sum==0){
                     List<Integer> temp=new ArrayList<>();
+
                     temp.add(nums[i]);
                     temp.add(nums[j]);
                     temp.add(nums[k]);
                     if(!set.contains(temp)){
-                        ans.add(temp);
-                        set.add(temp);
+                        ans.add(new ArrayList<>(temp));
+                        set.add(new ArrayList<>(temp));
                     }
                     j++;
                     k--;
+                }
+                else if(sum>0){
+                    k--;
+                }
+                else{
+                    j++;
                 }
             }
         }
