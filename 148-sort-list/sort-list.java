@@ -13,45 +13,44 @@ class Solution {
         if(head==null || head.next==null){
             return head;
         }
-        ListNode mid=Middle(head);
-        ListNode first=head;
-        ListNode second=mid.next;
-        mid.next=null;
-        first=sortList(first);
-        second=sortList(second);
-        ListNode ans=merge(first,second);
-        return ans;
-    }
-    public ListNode Middle(ListNode head){
-        
+        ListNode mid=middle(head);
         ListNode slow=head;
-        ListNode fast=head.next;
-        while(fast!=null && fast.next!=null){
+        ListNode fast=mid.next;
+        mid.next=null;
+        slow=sortList(slow);
+        fast=sortList(fast);
+        return merge(slow,fast);
+        
+    }
+    public ListNode middle(ListNode head) {
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast.next!=null && fast.next.next!=null){
             fast=fast.next.next;
             slow=slow.next;
         }
         return slow;
     }
-    public ListNode merge(ListNode l1,ListNode l2){
+    public ListNode merge(ListNode list1, ListNode list2) {
         ListNode dummy=new ListNode();
         ListNode temp=dummy;
-        while(l1!=null && l2!=null){
-            if(l1.val<=l2.val){
-                temp.next=l1;
-                l1=l1.next;
+        while(list1!=null && list2!=null){
+            if(list1.val>list2.val){
+                temp.next=list2;
+                list2=list2.next;
                 temp=temp.next;
             }
             else{
-                temp.next=l2;
-                l2=l2.next;
+                temp.next=list1;
+                list1=list1.next;
                 temp=temp.next;
             }
         }
-        if(l1!=null){
-            temp.next=l1;
+        if(list1!=null){
+            temp.next=list1;
         }
-        if(l2!=null){
-            temp.next=l2;
+        if(list2!=null){
+            temp.next=list2;
         }
         return dummy.next;
     }
